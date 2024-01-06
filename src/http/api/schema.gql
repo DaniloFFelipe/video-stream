@@ -1,0 +1,79 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ContentModel {
+  _id: String!
+  name: String!
+  originalPath: String!
+  status: String!
+  streamPath: String!
+}
+
+type MovieModel {
+  id: String!
+  title: String!
+  synopsis: String!
+  posterPath: String!
+  coverPath: String!
+  content: ContentModel!
+}
+
+type FeaturedMovieModel {
+  mainMovie: MovieModel
+  movies: [MovieModel!]!
+}
+
+type CodeModel {
+  authToken: String!
+}
+
+type UserModel {
+  profilePath: String!
+  email: String!
+  name: String!
+}
+
+type SessionModel {
+  user: UserModel!
+  token: String!
+}
+
+type Query {
+  search(params: SearchMoviesInput!): [MovieModel!]!
+  movie(id: String!): MovieModel!
+  featured: FeaturedMovieModel!
+  running: String!
+  content(id: String!): ContentModel!
+}
+
+input SearchMoviesInput {
+  page: Float
+  perPage: Float
+  q: String
+}
+
+type Mutation {
+  movie(data: CreateMovieInput!): MovieModel!
+  login(data: LoginInput!): SessionModel!
+  code(data: RequestCodeInput!): CodeModel!
+  resend: String!
+}
+
+input CreateMovieInput {
+  title: String!
+  synopsis: String!
+  posterPath: String!
+  coverPath: String!
+  contentId: String!
+  contentLengthInSeconds: Float!
+}
+
+input LoginInput {
+  token: String!
+  code: String!
+}
+
+input RequestCodeInput {
+  email: String!
+}

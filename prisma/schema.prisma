@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id
+
+  email       String @unique
+  name        String
+  profilePath String
+
+  @@map("users")
+}
+
+model Movie {
+  id String @id
+
+  title    String
+  synopsis String
+
+  posterPath String
+  coverPath  String
+
+  contentId String @unique
+
+  metadata  Json
+  createdAt DateTime @default(now())
+
+  @@map("movies")
+}
+
+model Serie {
+  id String @id
+
+  title    String
+  synopsis String
+
+  posterPath String
+  coverPath  String
+
+  createdAt DateTime  @default(now())
+  episodes  Episode[]
+
+  @@map("series")
+}
+
+model Episode {
+  id String @id
+
+  title    String
+  synopsis String
+
+  coverPath String
+  metadata  Json
+
+  contentId String
+
+  createdAt DateTime @default(now())
+
+  serie   Serie  @relation(fields: [serieId], references: [id])
+  serieId String
+
+  @@map("episodes")
+}

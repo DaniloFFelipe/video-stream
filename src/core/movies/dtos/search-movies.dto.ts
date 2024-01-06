@@ -1,0 +1,25 @@
+import { Field, InputType } from '@nestjs/graphql';
+import { createZodDto } from 'nestjs-zod';
+import { z } from 'zod';
+
+import { pageSchema } from '@/shared/types/pagination';
+
+const schema = z
+  .object({
+    q: z.string().optional(),
+  })
+  .merge(pageSchema);
+
+export class SearchMoviesDto extends createZodDto(schema) {}
+
+@InputType()
+export class SearchMoviesInput {
+  @Field({ nullable: true })
+  page: number;
+
+  @Field({ nullable: true })
+  perPage: number;
+
+  @Field({ nullable: true })
+  q: string;
+}

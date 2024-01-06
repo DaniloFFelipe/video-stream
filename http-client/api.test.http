@@ -1,0 +1,152 @@
+@baseUrl = http://localhost:3333
+@authToken = {{auth.response.body.token}}
+# @authCodeToken = {{send_auth_code.response.body.authToken}}
+
+# 65934ca21c4a7680a4e1e002 - ca
+# 65935ed36397b7aefdcfb370 - im
+
+# @name upload_video
+POST {{baseUrl}}/videos/upload
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=MfnBoundry
+
+--MfnBoundry
+Content-Disposition: form-data; name="file"; filename="video.mp4"
+Content-Type: video/mp4
+
+< ./video.mp4
+--MfnBoundry--
+###
+
+# @name list_video
+GET {{baseUrl}}/videos
+###
+
+# @name upload_image
+POST {{baseUrl}}/upload/images
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=MfnBoundry
+
+--MfnBoundry
+Content-Disposition: form-data; name="file"; filename="poster.jpeg"
+Content-Type: image/jpeg
+
+< ./poster.jpeg
+--MfnBoundry--
+###
+
+###
+# @name create_serie
+POST {{baseUrl}}/series
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "title": "The Walking Dead",
+  "synopsis": "Baseado na história em quadrinhos escrita por Robert Kirkman, este drama potente e visceral retrata a vida nos Estados Unidos pós-apocalíptico. Um grupo de sobreviventes, liderado pelo policial Rick Grimes, segue viajando em busca de uma nova moradia segura e distante dos mortos-vivos. A pressão para permanecerem vivos e lutarem pela sobrevivência faz com que muitos do grupo sejam submetidos às mais profundas formas de crueldade humana. Rick acaba descobrindo que o tão assustador desespero pela subsistência pode ser ainda mais fatal do que os próprios mortos-vivos que os rodeiam.",
+  "posterPath": "/images/b22700996650e86cdce3c2e8c1e52ef7.jpeg",
+  "coverPath": "/images/4798c1cd678f528d65f7a3971c07e4fc.jpeg"
+}
+
+###
+# @name search_series
+GET {{baseUrl}}/series/search
+
+###
+# @name featured_series
+GET {{baseUrl}}/series/featured
+# Authorization: Bearer {{authToken}}
+
+###
+# @name featured_movies
+GET {{baseUrl}}/movies/featured
+# Authorization: Bearer {{authToken}}
+
+###
+# @name movie
+GET {{baseUrl}}/movies/ff305b84-807e-4934-990c-280c467b82f0
+
+###
+# @name series
+GET {{baseUrl}}/series/cda0e130-1580-4c42-9e5f-57f0efbec7c7
+Authorization: Bearer {{authToken}}
+
+
+###
+# @name search_movies
+GET {{baseUrl}}/movies/search
+
+###
+# @name register
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "email": "danilo@test.com",
+  "name": "Danilo",
+  "profilePath": "/images/fa1c400b7d2296d546cf113cf35ee9a6.jpeg"
+}
+
+# d0bee049-49b4-4a8d-9ad2-6c0bdcd5c392
+
+###
+# @name request_code
+POST {{baseUrl}}/users/code
+Content-Type: application/json
+
+{
+  "email": "danilo@test.com"
+}
+
+###
+# @name auth
+POST {{baseUrl}}/users/auth
+Content-Type: application/json
+
+{
+  "code": "c42a04",
+  "token": "e6ecb662-fd87-44d7-af60-0bbdd7c3b68c"
+}
+
+###
+# @name resend
+POST {{baseUrl}}/users/resend
+Content-Type: application/json
+
+{
+  "token": "f75442a3-7318-42b6-b001-e99624c1b662"
+}
+
+###
+# @name create_movie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+  "title": "Homem de Ferro",
+  "synopsis": "Homem de Ferro é um personagem dos quadrinhos publicados pela Marvel Comics. Sua verdadeira identidade é o empresário e bilionário Tony Stark, que usa armaduras de alta tecnologia no combate ao crime. Foi criado em 1963 pelo escritor Stan Lee, o roteirista Larry Lieber e os desenhistas Jack Kirby e Don Heck.",
+  "posterPath": "/images/99400958c2d118118dd486f62fb96ac4.jpeg",
+  "coverPath": "/images/fa1c400b7d2296d546cf113cf35ee9a6.jpeg",
+  "contentId": "65935ed36397b7aefdcfb370",
+  "metadata": {
+    "lengthInSeconds": 151
+  }
+}
+
+###
+# @name create_episode
+POST {{baseUrl}}/episodes
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "title": "Episodio 6",
+  "synopsis": "Baseado na história em quadrinhos escrita por Robert Kirkman, este drama potente e visceral retrata a vida nos Estados Unidos pós-apocalíptico. Um grupo de sobreviventes, liderado pelo policial Rick Grimes, segue viajando em busca de uma nova moradia segura e distante dos mortos-vivos. A pressão para permanecerem vivos e lutarem pela sobrevivência faz com que muitos do grupo sejam submetidos às mais profundas formas de crueldade humana. Rick acaba descobrindo que o tão assustador desespero pela subsistência pode ser ainda mais fatal do que os próprios mortos-vivos que os rodeiam.",
+  "posterPath": "/images/b22700996650e86cdce3c2e8c1e52ef7.jpeg",
+  "coverPath": "/images/4798c1cd678f528d65f7a3971c07e4fc.jpeg",
+  "contentId": "6594930f6c2f2cb13fe1622a",
+  "seriesId": "cda0e130-1580-4c42-9e5f-57f0efbec7c7",
+  "metadata": {
+    "lengthInSeconds": 151
+  }
+}
